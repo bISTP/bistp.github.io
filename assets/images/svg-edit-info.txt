@@ -1,0 +1,11 @@
+icon-app.svg
+
+Color
+26% FFDB6E 100%
+100% FFBC5E 100%
+
+Opacity
+Outer - 100%
+Inner - 15%
+
+40x40
