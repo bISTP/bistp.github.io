@@ -2035,6 +2035,149 @@ textarea.form-input::-webkit-resizer {
 }
 
 /*-----------------------------------*\
+  #TECH STACK SECTION
+\*-----------------------------------*/
+.tech-stack .clients-list {
+  padding: 35px 25px;
+  display: flex; /* Ensures vertical alignment */
+  align-items: center;
+}
+
+.tech-stack .clients-item a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.tech-stack .clients-item img {
+  height: 40px;
+  width: auto;
+  margin: auto;
+  filter: grayscale(1) opacity(0.7);
+  transition: var(--transition-1);
+}
+
+.tech-stack .clients-item span {
+  color: var(--light-gray);
+  font-size: var(--fs-8);
+  opacity: 0;
+  transition: var(--transition-1);
+}
+
+.tech-stack .clients-item:hover img {
+  filter: grayscale(0) opacity(1);
+  transform: scale(1.15) translateY(-5px);
+}
+
+.tech-stack .clients-item:hover span {
+  opacity: 1;
+}
+
+/*-----------------------------------*\
+  # PROJECT NAVIGATOR BUTTON
+\*-----------------------------------*/
+.go-to-projects {
+  padding-top: 20px;
+}
+
+.project-navigator-btn {
+  position: relative;
+  width: 100%;
+  background: linear-gradient(145deg, hsl(45, 100%, 65%), hsl(35, 100%, 55%));
+  color: var(--onyx);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 18px 20px;
+  border-radius: 14px;
+  font-size: var(--fs-4);
+  font-weight: var(--fw-600);
+  text-transform: capitalize;
+  box-shadow: 0 4px 0px hsl(35, 100%, 40%), 0 6px 20px hsla(35, 100%, 50%, 0.3);
+  transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
+}
+
+.project-navigator-btn:hover {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0px hsl(35, 100%, 40%), 0 4px 10px hsla(35, 100%, 50%, 0.4);
+}
+
+/*-----------------------------------*\
+  # GO TO TOP BUTTON
+\*-----------------------------------*/
+
+.go-top-btn {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  width: 50px;
+  height: 50px;
+  background: var(--orange-yellow-crayola);
+  color: var(--onyx);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  box-shadow: var(--shadow-3);
+  font-size: 24px;
+  z-index: 4;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: var(--transition-1);
+}
+
+.go-top-btn.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Adjust position on mobile to avoid navbar overlap */
+@media (max-width: 580px) {
+  .go-top-btn {
+    bottom: 90px;
+  }
+}
+
+/* Click-to-Copy Email Text */
+.contact-link[data-copy-text] {
+  cursor: pointer;
+  transition: var(--transition-1);
+}
+.contact-link[data-copy-text]:hover {
+  color: var(--orange-yellow-crayola);
+}
+
+/* Copy Notification Toast */
+.copy-notification {
+  position: fixed;
+  bottom: 25px;
+  left: 50%;
+  transform: translate(-50%, 10px);
+  background: var(--onyx);
+  color: var(--orange-yellow-crayola);
+  padding: 12px 25px;
+  border-radius: 12px;
+  border: 1px solid var(--jet);
+  box-shadow: var(--shadow-3);
+  font-size: var(--fs-6);
+  font-weight: var(--fw-500);
+  z-index: 10;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease-in-out;
+}
+
+.copy-notification.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0);
+}
+
+/*-----------------------------------*\
   #PROJECTS PAGE
 \*-----------------------------------*/
 
@@ -2074,27 +2217,32 @@ textarea.form-input::-webkit-resizer {
   /* background: transparent; */
 }
 
+/*-----------------------------------*\
+  #PROJECTS PAGE - FINAL CARD STYLES
+\*-----------------------------------*/
+
+/* Base Card Structure */
 .project-card {
+  position: relative;
+  height: 480px; /* Fixed height for desktop hover effect */
   background: var(--eerie-black-1);
   border: 1px solid var(--jet);
   border-radius: 16px;
   box-shadow: var(--shadow-2);
   overflow: hidden;
-  transition: transform 0.25s ease-out, box-shadow 0.4s ease; /* Adjust transition */
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
   transform-style: preserve-3d;
 }
 
-/*-----------------------------------*\
-  # HARD IMAGE PREVIEW ON HOVER (FIX TO SMOOTH)
-\*-----------------------------------*/
-
+/* Image Section Styling */
 .project-banner {
-  /* Basic setup */
   width: 100%;
-  height: 220px;
-  border-bottom: 1px solid var(--jet);
-  display: block;
+  height: 50%;
+  position: relative;
+  overflow: hidden;
   cursor: pointer;
+  z-index: 2;
+  transition: height 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .project-banner img {
@@ -2104,21 +2252,148 @@ textarea.form-input::-webkit-resizer {
   object-position: top;
 }
 
+/* Content Section Styling */
 .project-content {
-  /* Basic setup */
+  width: 100%;
+  height: 50%;
   padding: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-/* --- The Hard Cut Hover Effect --- */
-
+/* --- DESKTOP HOVER EFFECT (CORRECTED TRIGGER) --- */
+/* The effect now only triggers when hovering the image banner itself */
 .project-banner:hover {
-  /* This makes the banner image slightly zoom in on hover for a dynamic effect. */
-  display: inline;
+  height: 100%;
 }
 
 .project-banner:hover + .project-content {
-  /* This completely removes the content from the layout, causing an instant change. */
-  display: none;
+  opacity: 0;
+  transform: translateY(20px);
+  pointer-events: none;
+}
+
+/* --- MOBILE & TABLET REFINED FALLBACK --- */
+@media (max-width: 768px) {
+  .project-item-recent {
+    /* Narrows the card on mobile screens */
+    max-width: 360px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .project-card {
+    height: auto; /* Revert to automatic height for content flow */
+  }
+
+  .project-banner {
+    height: 200px; /* Fixed height to crop the image */
+    position: relative;
+    /* Disable desktop hover effect */
+    transition: none;
+  }
+  .project-banner:hover {
+    height: 200px; /* Ensure height does not change on hover */
+  }
+
+  .project-content {
+    height: auto;
+    /* Disable desktop hover effect */
+    transition: none;
+    opacity: 1 !important;
+    transform: none !important;
+    pointer-events: auto !important;
+  }
+
+  /* Add a simple lift effect for mobile hover/tap */
+  .project-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-4);
+  }
+
+  /* Evenly distribute mobile buttons */
+  .project-links {
+    justify-content: space-around; /* Distributes space evenly around items */
+  }
+  .project-links .project-year-badge {
+    margin-left: 0; /* Remove the rule that pushes it to the right */
+  }
+
+  /* Icon-Only Buttons for Mobile */
+  .project-link-btn {
+    padding: 10px; /* Make button more square */
+    gap: 0;
+  }
+  .project-link-btn .btn-text {
+    display: none; /* Hide the text */
+  }
+  .project-link-btn ion-icon {
+    font-size: 20px; /* Slightly larger icon for touch */
+  }
+}
+
+/* --- FULLSCREEN IMAGE VIEWER STYLES --- */
+.fullscreen-viewer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(12, 12, 13, 0.9); /* eerie-black-2 with alpha */
+  backdrop-filter: blur(8px);
+  z-index: 30;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.fullscreen-viewer.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.fullscreen-viewer img {
+  max-width: 95%;
+  max-height: 95%;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: var(--shadow-5);
+  transform: scale(0.95);
+  transition: transform 0.3s ease;
+}
+
+.fullscreen-viewer.active img {
+  transform: scale(1);
+}
+
+.fullscreen-close-btn {
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  background: var(--onyx);
+  color: var(--white-2);
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 28px;
+  font-weight: 300;
+  line-height: 40px;
+  text-align: center;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: var(--transition-1);
+}
+
+.fullscreen-close-btn:hover {
+  opacity: 1;
+  transform: scale(1.1);
 }
 
 .project-header {
@@ -2266,76 +2541,6 @@ textarea.form-input::-webkit-resizer {
   .projects-list-past {
     grid-template-columns: 1fr 1fr;
   }
-}
-
-/*-----------------------------------*\
-  #TECH STACK SECTION
-\*-----------------------------------*/
-.tech-stack .clients-list {
-  padding: 35px 25px;
-  display: flex; /* Ensures vertical alignment */
-  align-items: center;
-}
-
-.tech-stack .clients-item a {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-}
-
-.tech-stack .clients-item img {
-  height: 40px;
-  width: auto;
-  margin: auto;
-  filter: grayscale(1) opacity(0.7);
-  transition: var(--transition-1);
-}
-
-.tech-stack .clients-item span {
-  color: var(--light-gray);
-  font-size: var(--fs-8);
-  opacity: 0;
-  transition: var(--transition-1);
-}
-
-.tech-stack .clients-item:hover img {
-  filter: grayscale(0) opacity(1);
-  transform: scale(1.15) translateY(-5px);
-}
-
-.tech-stack .clients-item:hover span {
-  opacity: 1;
-}
-
-/*-----------------------------------*\
-  # PROJECT NAVIGATOR BUTTON
-\*-----------------------------------*/
-.go-to-projects {
-  padding-top: 20px;
-}
-
-.project-navigator-btn {
-  position: relative;
-  width: 100%;
-  background: linear-gradient(145deg, hsl(45, 100%, 65%), hsl(35, 100%, 55%));
-  color: var(--onyx);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  padding: 18px 20px;
-  border-radius: 14px;
-  font-size: var(--fs-4);
-  font-weight: var(--fw-600);
-  text-transform: capitalize;
-  box-shadow: 0 4px 0px hsl(35, 100%, 40%), 0 6px 20px hsla(35, 100%, 50%, 0.3);
-  transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
-}
-
-.project-navigator-btn:hover {
-  transform: translateY(2px);
-  box-shadow: 0 2px 0px hsl(35, 100%, 40%), 0 4px 10px hsla(35, 100%, 50%, 0.4);
 }
 
 /*-----------------------------------*\
@@ -2530,77 +2735,4 @@ textarea.form-input::-webkit-resizer {
   to {
     transform: rotate(360deg);
   }
-}
-
-/*-----------------------------------*\
-  # GO TO TOP BUTTON
-\*-----------------------------------*/
-
-.go-top-btn {
-  position: fixed;
-  bottom: 25px;
-  right: 25px;
-  width: 50px;
-  height: 50px;
-  background: var(--orange-yellow-crayola);
-  color: var(--onyx);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50%;
-  box-shadow: var(--shadow-3);
-  font-size: 24px;
-  z-index: 4;
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(10px);
-  transition: var(--transition-1);
-}
-
-.go-top-btn.active {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-}
-
-/* Adjust position on mobile to avoid navbar overlap */
-@media (max-width: 580px) {
-  .go-top-btn {
-    bottom: 90px;
-  }
-}
-
-/* Click-to-Copy Email Text */
-.contact-link[data-copy-text] {
-  cursor: pointer;
-  transition: var(--transition-1);
-}
-.contact-link[data-copy-text]:hover {
-  color: var(--orange-yellow-crayola);
-}
-
-/* Copy Notification Toast */
-.copy-notification {
-  position: fixed;
-  bottom: 25px;
-  left: 50%;
-  transform: translate(-50%, 10px);
-  background: var(--onyx);
-  color: var(--orange-yellow-crayola);
-  padding: 12px 25px;
-  border-radius: 12px;
-  border: 1px solid var(--jet);
-  box-shadow: var(--shadow-3);
-  font-size: var(--fs-6);
-  font-weight: var(--fw-500);
-  z-index: 10;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s ease-in-out;
-}
-
-.copy-notification.active {
-  opacity: 1;
-  visibility: visible;
-  transform: translate(-50%, 0);
 }

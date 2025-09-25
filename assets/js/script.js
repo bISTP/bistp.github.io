@@ -185,3 +185,36 @@ if (copyTextElement) {
       });
   });
 }
+
+// Image Fullscreen Viewer Logic
+const projectBanners = document.querySelectorAll(".project-banner");
+const fullscreenViewer = document.querySelector("[data-fullscreen-viewer]");
+const fullscreenImg = document.querySelector("[data-fullscreen-img]");
+const fullscreenCloseBtn = document.querySelector("[data-fullscreen-close]");
+
+if (fullscreenViewer) {
+  const toggleFullscreen = () => {
+    fullscreenViewer.classList.toggle("active");
+  };
+
+  projectBanners.forEach((banner) => {
+    banner.addEventListener("click", (e) => {
+      // Prevent link clicks if user clicks on a link within the banner area
+      if (e.target.tagName === "A") return;
+
+      const sourceImg = banner.querySelector("img");
+      if (sourceImg) {
+        fullscreenImg.src = sourceImg.src;
+        toggleFullscreen();
+      }
+    });
+  });
+
+  fullscreenCloseBtn.addEventListener("click", toggleFullscreen);
+  fullscreenViewer.addEventListener("click", (e) => {
+    // Close viewer if user clicks on the background, but not on the image itself
+    if (e.target === fullscreenViewer) {
+      toggleFullscreen();
+    }
+  });
+}
